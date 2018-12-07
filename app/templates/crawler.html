@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <div class="row">
+
+        {% if running %}
+          <h1>Crawling</h1><br/>
+          <img src="https://file.mockplus.com/image/2018/04/d938fa8c-09d3-4093-8145-7bb890cf8a76.gif" width="200px" height="150px">
+        {% else %}
+        <br/><br/><br/><br/>
+        <form action="" method="post" class="form" role="form">
+        {{ form.hidden_tag() }}
+        <p>{{ form.start(class='btn btn-primary') }}</p>
+        </form>
+        {% endif %}
+
+    </div>
+    <div class='row'>
+      
+    </div>
+{% endblock %}

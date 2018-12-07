@@ -1,0 +1,12 @@
+lxml
+beautifulsoup4
+elasticsearch
+Flask
+WTForms
+Flask-Bootstrap
+Flask-Login
+Flask-Migrate
+Flask-SQLAlchemy
+Flask-WTF
+selenium
+
