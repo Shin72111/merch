@@ -1,7 +1,7 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-    {% if title %}{{ title }} - AMZ Merch Search{% else %}{{ _('Welcome to Microblog') }}{% endif %}
+    {% if title %}{{ title }} - AMZ Merch Search{% else %}Welcome to Merch{% endif %}
 {% endblock %}
 {% block head %}
 	{{ super() }}
@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('main.index') }}">Microblog</a>
+                <a class="navbar-brand" href="{{ url_for('main.index') }}">Merch</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
