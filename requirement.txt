@@ -9,4 +9,6 @@ Flask-Migrate
 Flask-SQLAlchemy
 Flask-WTF
 selenium
+waitress
+
 
