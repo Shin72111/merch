@@ -17,6 +17,7 @@ def before_request():
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
+    product_count = Products.query.count()
     products = Products.query.order_by(Products.id.asc()).paginate(
         page, current_app.config['PRODUCTS_PER_PAGE'], False)
     next_url = url_for('main.index', page=products.next_num) \
@@ -24,7 +25,7 @@ def index():
     prev_url = url_for('main.index', page=products.prev_num) \
         if products.has_prev else None
     return render_template('index.html', title='Home', products=products.items,
-        next_url=next_url, prev_url=prev_url)
+        next_url=next_url, prev_url=prev_url, product_count=product_count)
 
 
 @bp.route('/crawler', methods=['GET', 'POST'])
@@ -51,10 +52,19 @@ def search():
     products, total = Products.search(g.search_form.q.data, page,
         current_app.config['PRODUCTS_PER_PAGE'])
 
+    start = current_app.config['PRODUCTS_PER_PAGE'] * (page-1)  
+    if total > current_app.config['PRODUCTS_PER_PAGE'] * page:
+        end = current_app.config['PRODUCTS_PER_PAGE'] * page + 1
+    else:
+        end = total
+    if start < total:
+        products = products[start:end]
+
     next_url = url_for('main.search', q=g.search_form.q.data, page=page + 1) \
         if total > page * current_app.config['PRODUCTS_PER_PAGE'] else None
     prev_url = url_for('main.search', q=g.search_form.q.data, page=page - 1) \
         if page > 1 else None
 
     return render_template('index.html', title='Search', products=products,
-                           total=total, next_url=next_url, prev_url=prev_url)
+                           total=total, next_url=next_url, prev_url=prev_url,
+                           start=start, end=end, query=g.search_form.q.data)

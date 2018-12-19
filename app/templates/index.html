@@ -7,7 +7,11 @@
     {{ wtf.quick_form(form) }}
     <br>
     {% endif %}
+    <div class="product_count">
+        There are {{ product_count }} products in the database.<br/>
+    </div>
 	{% if g.search_form %}
+    
     <div class="row">
       <div class="col-md-3">
       </div>
@@ -23,15 +27,19 @@
 	{% endif %}
 
     <div id="results">
-      <div class="row">
-      {% for product in products %}
+        {% if start %}
+        <div class="search-info">{{ start }}-{{ end }} of {{ total }} results for "{{ query }}"
+        </div>
+        {% endif %}
+        <div class="row">
+        {% for product in products %}
         {% if loop.index0 % 3 == 0 %}
             </div>
             <div class="row">
         {% endif %}
         {% include '_product.html' %}
-      {% endfor %}
-      </div>
+        {% endfor %}
+        </div>
     </div>
 	<nav aria-label="...">
         <ul class="pager">
